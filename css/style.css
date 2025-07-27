@@ -1,0 +1,211 @@
+/** Main declarations */
+:root {
+    --default-margin: 20px;
+    --default-margin-: -20px;
+    --primary-color: #246EF0;
+    --primary-color-dark: #133B80;
+    --light-gray: #888;
+    --dark-white:#f6f6f6;
+    --green: #6d9b01;
+}
+
+@font-face {
+    font-family: 'agencyFb';
+    src: url('../assets/fonts/agencyfb_reg.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'agencyFbB';
+    src: url('../assets/fonts/agencyfb_bold.ttf') format('truetype');
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    font-family: 'agencyFbB', sans-serif;
+    font-size: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+h1,
+h2,
+h3,
+p {
+    margin: 0;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    list-style: none;
+}
+
+header,
+main {
+    position: relative;
+    max-width: 700px;
+    margin: auto;
+}
+
+header>img {
+    width: 100%;
+}
+
+header nav {
+    padding: 10px;
+    align-self: start;
+}
+
+header nav img {
+    height: 1em;
+}
+
+header #banner {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    font-size: 2rem;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+main {
+    flex: 1;
+    display: flex;
+    gap: var(--default-margin);
+    flex-direction: column;
+    padding: var(--default-margin);
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    margin-top: var(--default-margin-);
+    border-radius: var(--default-margin) var(--default-margin) 0 0;
+    background-color: var(--dark-white);
+}
+
+#search-panel {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+
+}
+
+.shadow {
+    border-radius: 5px;
+    box-shadow: 5px 5px 20px #AAA;
+}
+
+.evaluate {
+    color: var(--light-gray);
+}
+
+#search-panel label {
+    color: var(--green);
+}
+
+input {
+    background-color: #FFFF;
+    border: none;
+    font-family: inherit;
+    font-size: inherit;
+    font-size: 2rem;
+    width: 95%;
+    border-bottom: 2px solid transparent; 
+}
+input:focus{
+    outline: none;
+    border-bottom: 2px solid var(--green);    
+}
+
+ul#listeDepart, ul#listeArrivee{
+    width: 96%;
+    li{
+
+    }
+    li:hover{
+        background-color: var(--dark-white);
+        cursor: pointer;
+    }
+}
+
+.search {
+    display: flex;
+    justify-content: space-between;
+    margin: var(--default-margin);
+}
+
+.search>div {
+    display: flex;
+    flex-direction: column;
+}
+
+.separator {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    background-color: #444444;
+    height: 2px;
+}
+
+.separator p {
+    position: absolute;
+    align-self: center;
+    background-color: #444444;
+    color: white;
+    padding: 5px 30px;
+    border-radius: 30px;
+}
+
+.search-loc {
+    flex: 3;
+}
+
+.search-time {
+    flex: 1;
+}
+
+.search-time input {
+    font-family: 'agencyFb', sans-serif;
+}
+
+#search-days {
+    width: 100%;
+}
+
+#search-days ul {
+    display: flex;
+}
+
+#search-days li {
+    flex: 1;
+    text-align: center;
+}
+
+#search-days li a {
+    display: inline-block;
+    width: 100%;
+    padding: 10px 0;
+    color: var(--light-gray);
+}
+
+#search-days li a.active {
+    color: var(--primary-color);
+}
+
+.cta_butt {
+    background-color: var(--primary-color);
+    color: white;
+    width: 100%;
+    padding: 10px;
+    font-family: 'agencyFb';
+    font-size: 1.25em;
+    border-radius: 1.25em;
+    border: none;
+    box-shadow: 5px 5px 0 var(--primary-color-dark);
+}

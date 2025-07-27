@@ -1,0 +1,23 @@
+{
+    "name": "syl/breco_cda",
+    "require-dev": {
+        "phpunit/phpunit": "^12.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Syl\\BrecoCda\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Sylvain Girault",
+            "email": "syl@djro.fr"
+        }
+    ],
+    "require": {
+        "mongodb/mongodb": "^2.1"
+    },
+    "scripts": {
+        "test": "phpunit --testdox --no-progress --display-deprecations --display-warnings"
+    }
+}

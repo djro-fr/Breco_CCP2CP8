@@ -1,0 +1,30 @@
+{
+  "name": "breco_cda",
+  "version": "1.0.0",
+  "description": "This project is a virtual learn project.",
+  "main": "index.html",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently \"npm run php\" \"npm run bs\"",
+    "php": "php -S localhost:3000 -t .",
+    "bs": "browser-sync start --config bs-config.js",
+    "start": "npm run dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/djro-fr/Breco_CCP1CP3.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/djro-fr/Breco_CCP1CP3/issues"
+  },
+  "homepage": "https://github.com/djro-fr/Breco_CCP1CP3#readme",
+  "devDependencies": {
+    "browser-sync": "^3.0.4",
+    "concurrently": "^9.2.0"
+  }
+}

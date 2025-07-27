@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/script.js" defer></script>
+    <title>Breco</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon/favicon-16x16.png">
+    <link rel="manifest" href="./assets/favicon/site.webmanifest">
+</head>
+
+<body>
+
+    <header>
+
+        <img src="assets/images/back.png" alt="Image de fond décorative">
+        <div id="banner">
+            <nav>
+                <img src="assets/images/burger.svg" alt="Menu">
+            </nav>
+            <h1>Breco</h1>
+        </div>
+    </header>
+
+    <main>
+        <h2>Vous recherchez</h2>
+        <form action="">
+            <div id="search-panel" class="shadow">
+                <div class="search">
+                    <div class="search-loc">
+                        <label for="villeDepart">Depuis</label>
+                        <input type="text" id="villeDepart" name="villeDepart" value="Vignoc">
+                        <ul id="listeDepart"></ul>
+                    </div>
+                    <div class="search-time">
+                        <label for="heureDepart">À</label>
+                        <input type="text" id="heureDepart" name="heureDepart" value="07:43" class="evaluate">
+                    </div>
+                </div>
+                <div class="separator">
+                    <p>+ 17 min</p>
+                </div>
+                <div class="search">
+                    <div class="search-loc">
+                        <label for="villeArrivee">Vers</label>
+                        <input type="text" id="villeArrivee" name="villeArrivee" value="Rennes">
+                        <ul id="listeArrivee"></ul>
+                    </div>
+                    <div class="search-time">
+                        <label for="heureArrivee">À</label>
+                        <input type="text" id="heureArrivee" name="heureArrivee" value="08:00">
+                    </div>
+                </div>
+            </div>
+
+            <div id="search-days" class="shadow">
+                <ul>
+                    <li><a href="#" class="active">Lun</a></li>
+                    <li><a href="#" class="active">Mar</a></li>
+                    <li><a href="#" class="active">Mer</a></li>
+                    <li><a href="#" class="active">Jeu</a></li>
+                    <li><a href="#" class="active">Ven</a></li>
+                    <li><a href="#">Sam</a></li>
+                    <li><a href="#">Dim</a></li>
+                </ul>
+            </div>
+
+            <button class="cta_butt" type="button">
+                Rechercher
+            </button>
+        </form>
+
+
+    </main>
+
+
+</body>
+
+</html>
