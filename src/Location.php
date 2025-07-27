@@ -4,7 +4,7 @@
  * Classe Location pour gérer les lieux
  * 
  *****************************************************************/  
-namespace Syl\BrecoCda;
+namespace Syl\BrecoCcp2cp8;
 
 use MongoDB\Client;
 use MongoDB\Database;

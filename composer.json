@@ -1,11 +1,12 @@
 {
-    "name": "syl/breco_cda",
+    "name": "syl/breco_ccp2cp8",
+    "description": "Activite8",
     "require-dev": {
         "phpunit/phpunit": "^12.2"
     },
     "autoload": {
         "psr-4": {
-            "Syl\\BrecoCda\\": "src/"
+            "Syl\\BrecoCcp2cp8\\": "src/"
         }
     },
     "authors": [

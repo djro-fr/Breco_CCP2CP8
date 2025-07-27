@@ -14,13 +14,13 @@ On installe **Composer** pour pouvoir travailler avec **PHPUnit** (tests unitair
 
 On peut vérifier PHPUnit en faisant `./vendor/bin/phpunit`
 
-J'ai installé avec le **namespace** proposé par défaut `Syl\BrecoCda`
+J'ai installé avec le **namespace** proposé par défaut
 Dans le dossier *src* créé à la racine de mon dossier, je crée un 1ère définition de test rapide, un fichier ***Math.php***
 
 ```php
 <?php
 
-namespace Syl\BrecoCda;
+namespace Syl\BrecoCcp2cp8;
 
 class Math{
     public static function double($nombre){
@@ -34,13 +34,14 @@ Je vérifie que mon fichier ***composer.json*** a bien la bonne config pour l'au
 
 ```json
 {
-    "name": "syl/breco_cda",
+    "name": "syl/breco_ccp2cp8",
+    "description": "Activite8",
     "require-dev": {
         "phpunit/phpunit": "^12.2"
     },
     "autoload": {
         "psr-4": {
-            "Syl\\BrecoCda\\": "src/"
+            "Syl\\BrecoCcp2cp8\\": "src/"
         }
     },
     "authors": [
@@ -67,7 +68,7 @@ use PHPUnit\Framework\TestCase;
 class MathTest extends TestCase {
     
     public function testDouble(){
-        $this->assertEquals(4, \Syl\BrecoCda\Math::double(2) );
+        $this->assertEquals(4, \Syl\BrecoCcp2cp8\Math::double(2) );
     }
 }
 
@@ -94,13 +95,14 @@ Et un raccourci composer dans composer.json
 ```json
 
 {
-    "name": "syl/breco_cda",
+    "name": "syl/breco_ccp2cp8",
+    "description": "Activite8",
     "require-dev": {
         "phpunit/phpunit": "^12.2"
     },
     "autoload": {
         "psr-4": {
-            "Syl\\BrecoCda\\": "src/"
+            "Syl\\BrecoCcp2cp8\\": "src/"
         }
     },
     "authors": [
@@ -144,10 +146,10 @@ Je crée un fichier ***phpinfo.php*** à la racine contenant :
 On installe l’extension *MongoDB* dans le PHP de **MAMP** :
 
 - on exécute dans le navigateur *phpinfo.php* pour vérifier des infos, on cherche la version PHP -> ici j'ai 8.3.1
-- on va installer PECL mais avant cela, on regarde la ligne Thread Safety dans *phpinfo.php*. Si activée, on doit installer la version TS de PECL
-- on télécharge le ZIP du [gestionnaire de paquets PECL pour cette version](https://windows.php.net/downloads/pecl/releases/mongodb)
-- on extrait le DLL du ZIP qu'on copie dans `C:\MAMP\bin\php\php8.3.1\ext`
-- on édite *C:\MAMP\bin\php\php8.3.1\php.ini* et *C:\MAMP\conf\php8.3.1\php.ini*. On ajoute `extension=php_mongodb.dll`
-- on relance MAMP et on vérifie qu'on a bien *MongoDB* dans *phpinfo*. On peut aussi faire `php -m`
+- On note la ligne Thread Safety dans *phpinfo.php*. Si activée, on va installer la version TS dans PECL
+- on télécharge le ZIP du [gestionnaire de paquets PECL pour cette version](https://pecl.php.net/package/mongodb/2.1.1/windows)
+- on extrait le DLL du ZIP qu'on copie dans `C:\wamp\bin\php\php8.3.14\ext`
+- on édite *C:\wamp\bin\php\php8.3.14\php.ini*. On ajoute `extension=mongodb`
+- on relance WAMP et on vérifie qu'on a bien *MongoDB* dans *phpinfo*. On peut aussi faire `php -m`
 
 On installe le client MongoDB PHP via Composer `composer require mongodb/mongodb`

@@ -6,7 +6,7 @@
  *****************************************************************/ 
 
 use PHPUnit\Framework\TestCase;
-use Syl\BrecoCda\Location;
+use Syl\BrecoCcp2cp8\Location;
 
 class LocationTest extends TestCase {
 
