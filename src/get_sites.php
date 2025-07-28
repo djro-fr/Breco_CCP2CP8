@@ -6,6 +6,7 @@ header('Content-Type: application/json');
  * Récupération de la liste des lieux dans la base MongoDB
  * 
  *****************************************************************/ 
+require "globalFunctions.php";
 require "configNoSQL.php";
 // Classe Location
 require "Location.php";
@@ -17,8 +18,10 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-$q = $_GET['query'] ?? '';
-$q = trim($q);
+
+$q = sanitizeQuery($_GET['query']) ?? '';
+
+
 
 // Créer une instance de la classe Location
 $locManager = new Syl\BrecoCcp2cp8\Location();
