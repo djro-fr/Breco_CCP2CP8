@@ -157,7 +157,8 @@ main{
                                 /* background-color: var(--back-gray); */
                                 border: none;
                                 font-size: var(--fontM);
-                                height: 30px;
+                                padding-top: 2px;
+                                height: 25px;
                                 width: 95%;
                                 border-bottom: 2px solid var(--back-gray); 
                             }                            
@@ -174,11 +175,11 @@ main{
                                 position: absolute; 
                                 z-index: 2;
                                 box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
-                                top:29px;
+                                top:37px;
                                 background-color: white;
                                 padding-left: 0;
                                 
-                                width: calc(90% - 17px);
+                                width: calc(90% + 4px);
                                 li{
                                     padding: 10px 10px;
                                     list-style: none;
@@ -233,14 +234,15 @@ main{
                     }
                     input[type="checkbox"] + label {
                         cursor: pointer;
-                        border-bottom: 1px solid;
+                        border-bottom: 1px dotted var(--light-gray);
                         font-size:  var(--fontM);                        
                         color: var(--dark-gray);    
                         font-weight: 500;
 
                     }
                     input[type="checkbox"]:checked + label {
-                        color: var(--primary-color);                        
+                        color: var(--primary-color);                            
+                        border-bottom: 1px solid var(--primary-color);                    
                     }                
                 }
                 button.search{
@@ -253,7 +255,7 @@ main{
                     letter-spacing: .02em;
                     color: white;
                     font-size: var(--fontXL);
-                    line-height: 1.5;
+                    line-height: 1.65;
                     box-shadow: 0 3px 2px 0 var(--primary-color-dark);
                 }
 

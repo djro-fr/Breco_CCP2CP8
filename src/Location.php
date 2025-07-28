@@ -68,7 +68,7 @@ class Location {
 
         } catch (Exception $e) {
             // Gestion d'erreur
-            echo "❌ Erreur inattendue : " . $e->getMessage() . "\n";
+            error_log("❌ Erreur lors de la récupération : " . $e->getMessage());  
             return false;
         }
 
@@ -76,12 +76,12 @@ class Location {
     }
     
     /** *******************************************************************************
-     * Récupère tous les lieux de la collection contenant ou pas une chaîne
+     * Récupère tous les lieux de la collection contenant ou pas une chaîne et renvoie un tableau PHP
      * @param string $search
      * @return array|false Retourne un array des lieux ou false en cas d'erreur
      */
 
-    public function getLocations(String $search = ""): array|false
+    public function getLocationsPhp(String $search = ""): array|false
     {
         try {
             // On prend la collection 'location'
@@ -94,7 +94,30 @@ class Location {
             return $locations;
         } 
         catch (Exception $e) {
-            echo "❌ Erreur lors de la récupération : " . $e->getMessage() . "\n";
+            error_log("❌ Erreur lors de la récupération : " . $e->getMessage());  
+            return false;
+        }
+    }
+
+    /** *******************************************************************************
+     * Récupère tous les lieux de la collection contenant ou pas une chaîne
+     * @param string $search
+     * @return \MongoDB\Driver\Cursor|false  Retourne un curseur MongoDB
+     */
+
+    public function getLocationsQuery(String $search = "")
+    {
+        try {
+            $collection = $this->database->selectCollection('location');
+
+            $liste = $collection->find( 
+                ['nom' => ['$regex' => '^'.$search, '$options' => 'i']],
+                ['limit' => 5]
+                );     
+            return $liste;            
+        } 
+        catch (Exception $e) {
+            error_log("❌ Erreur lors de la récupération : " . $e->getMessage());            
             return false;
         }
     }
@@ -118,11 +141,10 @@ class Location {
             return $location;
         } 
         catch (Exception $e) {
-            echo "❌ Erreur lors de la récupération : " . $e->getMessage() . "\n";
+            error_log("❌ Erreur lors de la récupération : " . $e->getMessage());  
             return false;
         }
     }
-
 
     /** *******************************************************************************
      * Affiche tous les lieux de manière formatée
@@ -130,7 +152,7 @@ class Location {
      */
     public function displayAllLocations(): bool
     {
-        $locations = $this->getLocations();
+        $locations = $this->getLocationsPhp();
         
         if ($locations === false) {
             return false;
@@ -163,7 +185,7 @@ class Location {
      */
     public function displayLocationsBeginningBy(String $search = ""): bool
     {
-        $locations = $this->getLocations($search);
+        $locations = $this->getLocationsPhp($search);
         
         if ($locations === false) {
             return false;

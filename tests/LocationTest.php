@@ -22,27 +22,6 @@ class LocationTest extends TestCase {
         $this->assertTrue($this->locations->connect() );
     }
 
-    /*
-    public function testGetLocations(){
-        //Test de récupération de tous les lieux de la collection
-        $result = $this->locations->getLocations();
-        
-        // Vérifier que le résultat n'est pas false (pas d'erreur)
-        $this->assertNotFalse($result);
-        
-        // Vérifier que c'est bien un array
-        $this->assertIsArray($result);
-    }
-
-    public function testListLocations(){
-        //Test de récupération de tous les lieux de la collection
-        //Et affichage de ces lieux
-        $result = $this->locations->displayLocations();
-
-        $this->assertTrue($result);       
-    }
-    */
-
     public function testGetLocationWithResults(){      
         $this->locations->connect();        
         // On cherche ceux commençant par "Re"
@@ -57,13 +36,25 @@ class LocationTest extends TestCase {
         $this->assertEmpty($result);  
     }
 
-    public function testGetLocationWithSeveralResults(){      
+    public function testGetLocationPHPWithSeveralResults(){      
         $this->locations->connect();        
         // On cherche ceux commençant par "Re"
-        $result = $this->locations->getLocations("Re");       
+        $result = $this->locations->getLocationsPhp("Re");       
         // On compte le nombre de villes qui commencent par Re          
         $count = count($result);
         //On doit en trouver 2
+        $this->assertEquals($count, 2);
+    }
+
+    public function testGetLocationJSONWithSeveralResults(){      
+        $this->locations->connect();         
+        // On cherche ceux commençant par "Re"
+        $queryMongo = $this->locations->getLocationsQuery("Re");    
+        $count = 0;
+        foreach ($queryMongo as $document) {
+            $count++;
+        }        
+        // On doit en trouver 2
         $this->assertEquals($count, 2);
     }
 

@@ -6,7 +6,6 @@ header('Content-Type: application/json');
  * Récupération de la liste des lieux dans la base MongoDB
  * 
  *****************************************************************/ 
-
 require "configNoSQL.php";
 // Classe Location
 require "Location.php";
@@ -14,36 +13,34 @@ require "Location.php";
 // On utilise les paquets de Composer
 require_once '../vendor/autoload.php'; 
 
-// On se connecte au serveur MongoDB local
-$client = new MongoDB\Client("mongodb://localhost:27017");
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-// On récupère la collection location dans la base breco
-$collection = $client->breco->location;
+$q = $_GET['query'] ?? '';
+$q = trim($q);
 
-/*  On récupère la requête passée en argument
- *   ?? Coalescence null - équivalent de :
- *    isset($_GET['query']) ? $_GET['query'] : '';
-****************************************************/
-$query = $_GET['query'] ?? '';
+// Créer une instance de la classe Location
+$locManager = new Syl\BrecoCcp2cp8\Location();
 
-// On recherche avec regex (nom qui commence par... & insensible à la casse)
-$filter = [
-    'nom' => ['$regex' => '^'.$query, '$options' => 'i']
-];
+// Se connecter à la base de données
+if ($locManager->connect()) {    
 
-// On limite les résultats pour l'autocomplétion
-$options = ['limit' => 5];
+    // Afficher les locations selon la requête
+    $queryMongo = $locManager->getLocationsQuery($q);  
+    $results = [];
+    foreach ($queryMongo as $document) {
+        $results[] = [
+            'nom' => $document['nom'],
+            // l'ObjectID est converti en string
+            'id' => (string)$document['_id']
+        ];
+    }
+    echo json_encode($results);
 
-$cursor = $collection->find($filter, $options);
-$results = [];
-
-foreach ($cursor as $document) {
-    $results[] = [
-        'nom' => $document['nom'],
-        // l'ObjectID est converti en string
-        'id' => (string)$document['_id']
-    ];
+} else {    
+    error_log("❌ Échec de la connexion à MongoDB");
+    echo json_encode(['error' => 'Échec de la connexion à MongoDB.']);
 }
 
-// On convertit en JSON
-echo json_encode($results);
+

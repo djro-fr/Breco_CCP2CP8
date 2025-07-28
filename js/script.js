@@ -22,6 +22,8 @@ document.querySelector("#Duree").textContent="+ 17 min";
 // Declare variables
 let fromInput;
 let toInput;
+let HfromInput;
+let HtoInput;
 let fromList;
 let toList;
 
@@ -31,8 +33,6 @@ toInput = document.getElementById('villeArrivee');
 //on récupère les entrées du DOM des listes associées
 fromList = document.getElementById('listeDepart');
 toList = document.getElementById('listeArrivee');
-
-
 
 // Création de la liste à partir de la base de données NoSQL
 function getSitesList(input, list){
@@ -44,12 +44,16 @@ function getSitesList(input, list){
         list.innerHTML = '';
         list.style.display = "none";
         return;
-    }
-    
+    }    
 
     // On va chercher la liste avec AJAX et on injecte l'input entrée par l'utilisateur
     fetch(`src/get_sites.php?query=${inputValue}`)
-        .then(response => response.json())        
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })      
         .then(data => {
             // On efface la liste UL en cours
             list.innerHTML = '';
@@ -97,6 +101,43 @@ function initLocationAutoComplete() {
 document.addEventListener('DOMContentLoaded', initLocationAutoComplete);
 
 
+// ********************************************************************
 
 
+HfromInput = document.getElementById('heureDepart');
+HtoInput = document.getElementById('heureArrivee');
 
+// Fonction pour formater la valeur de l'input
+function formatTimeInput(e) {
+    let value = e.target.value;
+    // Supprimer tous les caractères non numériques sauf le premier deux-points
+    const colonIndex = value.indexOf(':');
+    if (colonIndex !== -1) {
+        // Conserver uniquement le premier deux-points
+        const beforeColon = value.substring(0, colonIndex).replace(/[^\d]/g, '');
+        const afterColon = value.substring(colonIndex + 1).replace(/[^\d]/g, '').substring(0, 2);
+        value = beforeColon + ':' + afterColon;
+    } else {
+        // Si aucun deux-points, supprimer tous les caractères non numériques
+        value = value.replace(/[^\d]/g, '');
+    }
+    // Ajouter automatiquement les deux-points après deux chiffres si ce n'est pas déjà fait
+    if (colonIndex === -1 && value.length > 2) {
+        value = value.substring(0, 2) + ':' + value.substring(2);
+    }
+    // Valider l'heure
+    if (value.includes(':') && value.length > 4) {
+        const parts = value.split(':');
+        const hours = parseInt(parts[0], 10);
+        const minutes = parseInt(parts[1], 10);
+        if (isNaN(hours) || isNaN(minutes) || hours > 23 || minutes > 59) {
+            // Si l'heure n'est pas valide, supprimer l'entrée
+            value = '';
+        }
+    }
+    // Mettre à jour la valeur du champ
+    e.target.value = value;
+}
+
+HfromInput.addEventListener('input', formatTimeInput);
+HtoInput.addEventListener('input', formatTimeInput);
