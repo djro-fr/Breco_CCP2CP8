@@ -80,7 +80,7 @@ Créez ou modifiez `package.json` :
 {
     "name": "mon-projet-php",
     "version": "1.0.0",
-    "description": "Projet PHP avec autocomplétion MongoDB",
+    "description": "Projet PHP avec autocomplétion",
     "scripts": {
         "dev": "concurrently \"npm run php\" \"npm run bs\"",
         "php": "php -S localhost:3000 -t .",

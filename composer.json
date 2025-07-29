@@ -15,9 +15,6 @@
             "email": "syl@djro.fr"
         }
     ],
-    "require": {
-        "mongodb/mongodb": "^2.1"
-    },
     "scripts": {
         "test": "phpunit --testdox --no-progress --display-deprecations --display-warnings"
     }

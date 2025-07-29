@@ -1,7 +1,5 @@
 # Étapes du projet
 
-## Dans Docker, démarrage du container MongoDB
-
 ## Principe des Tests Unitaires avec PHPUnit
 
 On installe **Composer** pour pouvoir travailler avec **PHPUnit** (tests unitaires en PHP) :
@@ -111,9 +109,6 @@ Et un raccourci composer dans composer.json
             "email": "syl@djro.fr"
         }
     ],
-    "require": {
-        "mongodb/mongodb": "^2.1"
-    },
     "scripts": {
         "test": "phpunit --testdox --no-progress --display-deprecations --display-warnings"
     }
@@ -123,33 +118,3 @@ Et un raccourci composer dans composer.json
 ```
 
 On lance les tests en faisant `composer test` dans le terminal
-
-## MongoDB
-
-Dans le terminal via **Mongosh** :
-
-`show databases`
-`use breco`
-`show collections`
-`db.createCollection("location");`
-`db.location.insertMany( [ { nom: "Tinténiac"}, { nom: "Rennes"}, { nom: "Vignoc"}, { nom: "Brest"} ] );`
-
-Je crée un fichier ***phpinfo.php*** à la racine contenant :
-
-```php
-<?php 
-    echo extension_loaded("mongodb") ? "✅ mongodb chargée." : "❌ mongodb non chargée.";
-    phpinfo(); 
-?>
-```
-
-On installe l’extension *MongoDB* dans le PHP de **MAMP** :
-
-- on exécute dans le navigateur *phpinfo.php* pour vérifier des infos, on cherche la version PHP -> ici j'ai 8.3.1
-- On note la ligne Thread Safety dans *phpinfo.php*. Si activée, on va installer la version TS dans PECL
-- on télécharge le ZIP du [gestionnaire de paquets PECL pour cette version](https://pecl.php.net/package/mongodb/2.1.1/windows)
-- on extrait le DLL du ZIP qu'on copie dans `C:\wamp\bin\php\php8.3.14\ext`
-- on édite *C:\wamp\bin\php\php8.3.14\php.ini*. On ajoute `extension=mongodb`
-- on relance WAMP et on vérifie qu'on a bien *MongoDB* dans *phpinfo*. On peut aussi faire `php -m`
-
-On installe le client MongoDB PHP via Composer `composer require mongodb/mongodb`
