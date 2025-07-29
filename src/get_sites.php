@@ -3,11 +3,10 @@
 header('Content-Type: application/json');
 
 /** **************************************************************
- * Récupération de la liste des lieux dans la base MongoDB
+ * Récupération de la liste des lieux dans la base MySQL
  * 
  *****************************************************************/ 
-require "globalFunctions.php";
-require "configNoSQL.php";
+require "configSQL.php";
 // Classe Location
 require "Location.php";
 
@@ -18,29 +17,17 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-
+// on nettoie la query pour empêcher les injections
 $q = sanitizeQuery($_GET['query']) ?? '';
 
-
-
-// Créer une instance de la classe Location
-$locManager = new Syl\BrecoCcp2cp8\Location();
+// Créer une instance de la classe Location à partir des infos de config
+$locManager = new Syl\BrecoCcp2cp8\Location($mySQL_host, $mySQL_port, $mySQL_user, $mySQL_pwd, $mySQL_dbName);
 
 // Se connecter à la base de données
 if ($locManager->connect()) {    
-
     // Afficher les locations selon la requête
-    $queryMongo = $locManager->getLocationsQuery($q);  
-    $results = [];
-    foreach ($queryMongo as $document) {
-        $results[] = [
-            'nom' => $document['nom'],
-            // l'ObjectID est converti en string
-            'id' => (string)$document['_id']
-        ];
-    }
+    $results = $locManager->getLocationNamesWithSearch($q);  
     echo json_encode($results);
-
 } else {    
     error_log("❌ Échec de la connexion à MongoDB");
     echo json_encode(['error' => 'Échec de la connexion à MongoDB.']);

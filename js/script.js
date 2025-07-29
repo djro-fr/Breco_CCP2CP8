@@ -59,13 +59,13 @@ function getSitesList(input, list){
             list.innerHTML = '';
             data.forEach(location => {
                 const listItem = document.createElement('li');
-                listItem.textContent = location.nom;
+                listItem.textContent = location;
                 list.appendChild(listItem);
                 list.style.display = "block";
 
                 // Quand on clique sur le nom dans la liste, l'input change
                 listItem.addEventListener('click', function () {
-                    input.value = location.nom;
+                    input.value = location;
                     list.innerHTML = '';
                     list.style.display = "none";
                 });
@@ -101,13 +101,15 @@ function initLocationAutoComplete() {
 document.addEventListener('DOMContentLoaded', initLocationAutoComplete);
 
 
-// ********************************************************************
+// ******************************************************************
+// * GESTION INPUT HEURE
+// ******************************************************************
 
 
 HfromInput = document.getElementById('heureDepart');
 HtoInput = document.getElementById('heureArrivee');
 
-// Fonction pour formater la valeur de l'input
+// Fonction pour formater la valeur de l'input HEURE
 function formatTimeInput(e) {
     let value = e.target.value;
     // Supprimer tous les caractères non numériques sauf le premier deux-points

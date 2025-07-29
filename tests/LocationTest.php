@@ -1,7 +1,7 @@
 <?php
 
 /** **************************************************************
- * Test PHPUnit sur la Classe Location (lieux)
+ * Tests PHPUnit sur la Classe Location (lieux)
  * 
  *****************************************************************/ 
 
@@ -10,53 +10,55 @@ use Syl\BrecoCcp2cp8\Location;
 
 class LocationTest extends TestCase {
 
-    private Location $locations;
+    //Le ? permet d'avoir un NULL
+    private ?Location $location;
 
-    // Initialisation
+    // Initialise un nouvel objet Location avant chaque test
     protected function setUp() : void {
-        $this->locations = new Location();
-        $this->locations->connect();    
+        $this->location = new Location('localhost', 3306, 'root', '', 'web_project');
     }
     
-    public function testConnect(){               
-        $this->assertTrue($this->locations->connect() );
+    // Nettoyer après les tests, par exemple, fermer la connexion
+    protected function tearDown(): void {    
+        $this->location = null;
     }
 
-    public function testGetLocationWithResults(){      
-        $this->locations->connect();        
+    // Teste la connexion
+    public function testConnection(){               
+        $this->assertTrue($this->location->connect() );
+    }
+
+    // Teste la récupération des noms qui commencent par une string
+    public function testGetLocationNamesWithSearch(){      
+        $this->location->connect();        
         // On cherche ceux commençant par "Re"
-        $result = $this->locations->getFirstLocation("Re");       
-        // On teste si le nom est Rennes en ignorant l'ID        
-        $this->assertEquals('Rennes', $result['nom']);
-    }
-
-    public function testGetLocationWithoutResults(){    
-        $this->locations->connect();                
-        $result = $this->locations->getFirstLocation("MauvaiseEntrée");                
-        $this->assertEmpty($result);  
-    }
-
-    public function testGetLocationPHPWithSeveralResults(){      
-        $this->locations->connect();        
-        // On cherche ceux commençant par "Re"
-        $result = $this->locations->getLocationsPhp("Re");       
+        $result = $this->location->getLocationNamesWithSearch("Re");       
         // On compte le nombre de villes qui commencent par Re          
         $count = count($result);
         //On doit en trouver 2
         $this->assertEquals($count, 2);
     }
-
-    public function testGetLocationJSONWithSeveralResults(){      
-        $this->locations->connect();         
-        // On cherche ceux commençant par "Re"
-        $queryMongo = $this->locations->getLocationsQuery("Re");    
-        $count = 0;
-        foreach ($queryMongo as $document) {
-            $count++;
-        }        
-        // On doit en trouver 2
-        $this->assertEquals($count, 2);
+    
+    // Teste la récupération des noms avec un paramètre vide
+    public function testGetLocationNamesWithoutSearch()
+    {
+        $this->location->connect();  
+        $results = $this->location->getLocationNamesWithSearch();
+        $this->assertIsArray($results, "Le résultat doit être un tableau.");
+        $this->assertNotEmpty($results, "Le tableau de résultats ne doit pas être vide.");
     }
+
+    // Teste la récupération des noms qui commencent par une string
+    public function testGetAllLocations(){      
+        $this->location->connect();        
+        // On cherche toutes les étapes
+        $result = $this->location->getAllLocations();               
+        $count = count($result);
+        //On doit en trouver 6
+        $this->assertEquals($count, 6);
+    }
+
+
 
 
 }

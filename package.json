@@ -18,15 +18,18 @@
   "directories": {
     "test": "tests"
   },
-    "scripts": {
-        "dev": "concurrently \"npm run php\" \"npm run bs\"",
-        "php": "php -S localhost:3000 -t .",
-        "bs": "browser-sync start --config bs-config.js",
-        "start": "npm run dev"
-    },
+  "scripts": {
+    "dev": "concurrently \"npm run php\" \"npm run bs\"",
+    "php": "php -S localhost:3000 -t .",
+    "bs": "browser-sync start --config bs-config.js",
+    "start": "npm run dev"
+  },
   "devDependencies": {
     "browser-sync": "^3.0.4",
     "concurrently": "^9.2.0"
+  },
+  "dependencies": {
+    "csv-parser": "^3.2.0",
+    "prompt-sync": "^4.2.0"
   }
 }
-
